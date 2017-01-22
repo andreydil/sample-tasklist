@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{519CA105
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskList.Tests.DAL.SQL", "TaskList.Tests.DAL.SQL\TaskList.Tests.DAL.SQL.csproj", "{CBD74444-BF3F-44BD-BB86-93F4777AC94E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tasklist.Web", "Tasklist.Web\Tasklist.Web.csproj", "{725D6046-9894-492A-881A-258F7EADD653}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{CBD74444-BF3F-44BD-BB86-93F4777AC94E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBD74444-BF3F-44BD-BB86-93F4777AC94E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBD74444-BF3F-44BD-BB86-93F4777AC94E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{725D6046-9894-492A-881A-258F7EADD653}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{725D6046-9894-492A-881A-258F7EADD653}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{725D6046-9894-492A-881A-258F7EADD653}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{725D6046-9894-492A-881A-258F7EADD653}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

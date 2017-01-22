@@ -174,3 +174,4 @@ DBSettings.config
 /src/ModPac.UserManagement/.vs
 /src/ModPac.UserManagement/ModPac.UserManagement.WebUI/IdentityServerSettings.config
 /packages
+/Tasklist.Web/App_Data
