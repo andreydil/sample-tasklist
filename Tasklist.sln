@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskList.Tests.DAL.SQL", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tasklist.Web", "Tasklist.Web\Tasklist.Web.csproj", "{725D6046-9894-492A-881A-258F7EADD653}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tasklist.BLL", "Tasklist.BLL\Tasklist.BLL.csproj", "{C622FD5A-B9F4-42CC-9C00-0668EB1D3674}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{725D6046-9894-492A-881A-258F7EADD653}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{725D6046-9894-492A-881A-258F7EADD653}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{725D6046-9894-492A-881A-258F7EADD653}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C622FD5A-B9F4-42CC-9C00-0668EB1D3674}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C622FD5A-B9F4-42CC-9C00-0668EB1D3674}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C622FD5A-B9F4-42CC-9C00-0668EB1D3674}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C622FD5A-B9F4-42CC-9C00-0668EB1D3674}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

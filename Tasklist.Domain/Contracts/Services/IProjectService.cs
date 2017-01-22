@@ -7,8 +7,8 @@ namespace Tasklist.Domain.Contracts.Services
 {
     public interface IProjectService
     {
-        Task<Project> GetProjectById(long id);
-        Task<List<Project>> GetAllProjects();
+        Task<Project> GetProjectByIdAsync(long id);
+        Task<List<Project>> GetAllProjectsAsync();
         Task AddProjectAsync(Project project);
         Task DeleteProjectAsync(long id);
         Task UpdateProjectAsync(Project project);

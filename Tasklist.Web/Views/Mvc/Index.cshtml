@@ -1,0 +1,22 @@
+﻿@model Tasklist.Web.Models.ProjectListVM
+@{
+    ViewBag.Title = "Tasklist in pure MVC";
+}
+
+<h2>Projects and tasks</h2>
+
+<div class="just-padding">
+    <div class="list-group list-group-root well">
+        @foreach (var project in Model.Projects)
+        {
+            <a href="#" class="list-group-item str"><h6><strong>@project.Name</strong></h6> @project.Description</a>
+            <div class="list-group">
+                @foreach (var task in project.Tasks)
+                {
+                    <a href="#" class="list-group-item"><span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> @task.Name </a>
+                }
+            </div>
+        }
+    </div>
+    @Html.ActionLink("Add", "Add", "Mvc", null, new { @class = "btn btn-default" })
+</div>

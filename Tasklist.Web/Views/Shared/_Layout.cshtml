@@ -21,7 +21,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                    <li @MvcHtmlString.Create((Request.Url.AbsolutePath == "/" ? "class=active" : ""))>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                    <li @Selected("Mvc")>@Html.ActionLink("Mvc", "Index", "Mvc", new { area = "" }, null)</li>
                 </ul>
             </div>
         </div>
@@ -34,8 +35,17 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/common")
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+
+@helper Selected(params string[] controllerNames)
+{
+    var url = Request.Url.AbsolutePath.ToLower();
+    foreach (var loweredControllerName in controllerNames
+        .Select(controllerName => controllerName.ToLower()).Where(url.Contains))
+    {
+        @MvcHtmlString.Create("class=active")
+    }
+}
