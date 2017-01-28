@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using NUnit.Framework;
 using Tasklist.Domain.Entities;
 
@@ -27,6 +28,32 @@ namespace TaskList.Tests.DAL.SQL
             Assert.AreEqual("Test name", addedProject.Name);
             Assert.AreEqual("test desc", addedProject.Description);
             Assert.AreEqual(new DateTime(2000, 1, 1), addedProject.DueDate);
+        }
+
+        [Test]
+        public async System.Threading.Tasks.Task AddProjectWithTaskTest()
+        {
+            var uow = UnitOfWorkFabric.CreateUnitOfWork();
+            var project = new Project
+            {
+                Name = "Test name",
+                Description = "test desc",
+                DueDate = new DateTime(2000, 1, 1),
+            };
+            uow.ProjectRepository.Add(project);
+            await uow.SaveChangesAsync();
+
+            Assert.IsTrue(project.Id != 0);
+
+            var task = new Task { IsDone = true, Name = "test task", ProjectId = project.Id };
+            uow.TaskRepository.Add(task);
+            await uow.SaveChangesAsync();
+
+            var addedProject = await uow.ProjectRepository.GetByIdAsync(project.Id);
+            Assert.IsNotNull(addedProject);
+            Assert.AreEqual(1, addedProject.Tasks.Count);
+            Assert.AreEqual("test task", addedProject.Tasks.Single().Name);
+            Assert.IsTrue(addedProject.Tasks.Single().IsDone);
         }
 
         [Test]
@@ -59,7 +86,7 @@ namespace TaskList.Tests.DAL.SQL
             Assert.AreEqual("edited desc", addedProject.Description);
             Assert.AreEqual(new DateTime(2001, 1, 1), addedProject.DueDate);
         }
-
+        
         [Test]
         public async System.Threading.Tasks.Task DeleteProjectTest()
         {

@@ -32,7 +32,7 @@ namespace Tasklist.DAL.SQL.Repositories
 
         public virtual Task<List<TEntity>> GetAllAsync()
         {
-            return DbSet.ToListAsync();
+            return AllQuery().ToListAsync();
         }
 
         public virtual Task<TEntity> GetByIdAsync(object id)

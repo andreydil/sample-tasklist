@@ -1,6 +1,6 @@
 ﻿@model Tasklist.Web.Models.ProjectModel
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Project";
 }
 
 <h2>Edit Project</h2>
@@ -13,6 +13,7 @@
                 <label for="Name" class="col-lg-2 control-label">Name</label>
                 <div class="col-lg-10">
                     @Html.TextBoxFor(m => m.Name, new { @class = "form-control", id = "txtName", placeholder = "Name" })
+                    @Html.ValidationMessageFor(m => m.Name)
                 </div>
             </div>
 
@@ -20,13 +21,28 @@
                 <label for="Description" class="col-lg-2 control-label">Description</label>
                 <div class="col-lg-10">
                     @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = "3" })
-                    <span class="help-block">Optional</span>
                 </div>
             </div>
 
             <div class="form-group">
+                <label class="col-lg-2 control-label">Tasks</label>
+                <div class="col-lg-10" data-bind="foreach: tasks">
+                    <div class="task-row">
+                        <input type="text" class="form-control col-md-4" data-bind="textInput: name, event: { focusout: $root.onTaskNameLostFocus }, attr: { name: 'Tasks['+$index()+'].Name'}" placeholder="Task text"/>
+                        <input title="Done?" type="checkbox" value="true" class="task-isdone" data-bind="checked: isDone, attr: { name: 'Tasks['+$index()+'].IsDone'}"/>
+                        <input type="hidden" value="false" data-bind="attr: { name: 'Tasks['+$index()+'].IsDone'}"/>
+                        <a class="glyphicon glyphicon-remove btn-inline-remove" href="#" tabindex="-1" data-bind="click: $root.removeTask" title="Remove"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-10 text-danger">
+                @Html.ValidationSummary(true)
+            </div>
+
+            <div class="form-group">
                 <div class="col-lg-10 col-lg-offset-2">
-                    <button type="reset" class="btn btn-default">Cancel</button>
+                    @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-default" })
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <button type="button" id="btnDelete" class="btn btn-danger" style="margin-left: 30px;">Delete</button>
                 </div>
@@ -37,18 +53,67 @@
 </div>
 
 @section Scripts {
+    @Scripts.Render("~/bundles/knockout")
     <script>
         (function() {
-            $('#btnDelete').on('click', function(e) {
-                e.preventDefault();
-                $.ajax({
-                    url: '@Url.Action("Delete")',
-                    method: "POST",
-                    data: { id: @Model.Id }
-                }).done(function (data) {
-                    window.location.href = '@Url.Action("Index")';
-                });;
+            $('#btnDelete').confirmation({
+                popout: true,
+                title: "Are you sure?",
+                onConfirm: function () {
+                    $.ajax({
+                        url: '@Url.Action("Delete")',
+                        method: "DELETE",
+                        data: { id: @Model.Id }
+                    }).done(function() {
+                        window.location.href = '@Url.Action("Index")';
+                    });;
+                }
             });
+            
+            var Task = function(name, isDone) {
+                this.name = name || '';
+                this.isDone = isDone || false;
+            };
+
+            var ViewModel = function(tasks) {
+                var self = this;
+
+                self.tasks = tasks ? ko.observableArray(tasks) : ko.observableArray([new Task()]);
+
+                self.onTaskNameLostFocus = function() {
+                    var lastTask = self.getLastTask();
+                    if (!lastTask || lastTask.name) {
+                        self.addEmptyTask();
+                    }
+                };
+
+                self.getLastTask = function() {
+                    return self.tasks()[self.tasks().length - 1];
+                };
+
+                self.addEmptyTask = function() {
+                    var lastTask = self.getLastTask();
+                    if (!lastTask || lastTask.name) {
+                        self.tasks.push(new Task());
+                    }
+                };
+
+                self.removeTask = function(task) {
+                    if (self.tasks().length > 1) {
+                        self.tasks.remove(task);
+                    }
+                };
+            }
+
+            var tasksList = [];
+            @foreach (var task in Model.Tasks)
+            {
+                @:tasksList.push(new Task('@(task.Name)', @(task.IsDone.ToString().ToLower())));
+            }
+
+            var viewModel = new ViewModel(tasksList);
+            viewModel.addEmptyTask();
+            ko.applyBindings(viewModel);
         })();
     </script>
 }

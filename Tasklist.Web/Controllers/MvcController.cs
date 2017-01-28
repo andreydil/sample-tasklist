@@ -1,12 +1,14 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using System.Web.Http.Results;
 using System.Web.Mvc;
 using Tasklist.Domain.Contracts.Services;
 using Tasklist.Domain.Entities;
 using Tasklist.Web.Mapping;
 using Tasklist.Web.Models;
+using WebGrease.Css.Extensions;
+using Task = Tasklist.Domain.Entities.Task;
 
 namespace Tasklist.Web.Controllers
 {
@@ -37,7 +39,10 @@ namespace Tasklist.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Add(ProjectModel project)
         {
-            //TODO: validation
+            if (!ModelState.IsValid)
+            {
+                return View(project);
+            }
             var newProject = new Project {
                 Name = project.Name,
                 Description = project.Description,
@@ -54,6 +59,26 @@ namespace Tasklist.Web.Controllers
         }
 
         [HttpPost]
+        public async Task<ActionResult> Edit(ProjectModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var project = await _projectService.GetProjectByIdAsync(model.Id);
+            if (project != null)
+            {
+                project.Name = model.Name;
+                project.Description = model.Description;
+                var tasks = project.Tasks?.ToList() ?? new List<Task>();
+                tasks.AddRange(model.Tasks.Select(TaskMapper.Map).ToList());
+                project.Tasks = tasks;
+                await _projectService.UpdateProjectAsync(project);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpDelete]
         public async Task<ActionResult> Delete(long id)
         {
             await _projectService.DeleteProjectAsync(id);

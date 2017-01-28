@@ -1,6 +1,6 @@
 ﻿@model Tasklist.Web.Models.ProjectModel
 @{
-    ViewBag.Title = "Add";
+    ViewBag.Title = "Add New Project";
 }
 
 <h2>Add new project</h2>
@@ -13,6 +13,7 @@
                 <label for="Name" class="col-lg-2 control-label">Name</label>
                 <div class="col-lg-10">
                     @Html.TextBoxFor(m => m.Name, new { @class="form-control", id="txtName", placeholder="Name" })
+                    @Html.ValidationMessageFor(m => m.Name)
                 </div>
             </div>
 
@@ -24,12 +25,17 @@
                 </div>
             </div>
 
+            <div class="col-lg-10 text-danger">
+                @Html.ValidationSummary(true)
+            </div>
+
             <div class="form-group">
                 <div class="col-lg-10 col-lg-offset-2">
                     <button type="reset" class="btn btn-default">Cancel</button>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </div>
+            
         </fieldset>
     }
 </div>

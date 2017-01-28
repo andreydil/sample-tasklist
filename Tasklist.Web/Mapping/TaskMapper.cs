@@ -11,8 +11,21 @@ namespace Tasklist.Web.Mapping
             {
                 return null;
             }
-            return new TaskModel {
-                Id = task.Id,
+            return new TaskModel
+            {
+                Name = task.Name,
+                IsDone = task.IsDone,
+            };
+        }
+
+        public static Task Map(TaskModel task)
+        {
+            if (task == null)
+            {
+                return null;
+            }
+            return new Task
+            {
                 Name = task.Name,
                 IsDone = task.IsDone,
             };

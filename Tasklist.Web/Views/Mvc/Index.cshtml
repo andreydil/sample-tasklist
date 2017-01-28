@@ -9,14 +9,40 @@
     <div class="list-group list-group-root well">
         @foreach (var project in Model.Projects)
         {
-            <a href="#" class="list-group-item str"><h6><strong>@project.Name</strong></h6> @project.Description</a>
-            <div class="list-group">
+            <a href="#" data-id="@project.Id" class="list-group-item str proj"><h4><strong>@project.Name</strong></h4> @project.Description </a>
+            <div class="list-group proj">
                 @foreach (var task in project.Tasks)
                 {
-                    <a href="#" class="list-group-item"><span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> @task.Name </a>
+                    <a href="#" class="list-group-item"><span class="@checkedIcon(task.IsDone)" aria-hidden="true"></span> @task.Name</a>
                 }
             </div>
         }
     </div>
     @Html.ActionLink("Add", "Add", "Mvc", null, new { @class = "btn btn-default" })
 </div>
+
+@helper checkedIcon(bool val) {
+    if (val)
+    {
+        @:glyphicon glyphicon-ok 
+    }
+    else
+    {
+        @:glyphicon glyphicon-unchecked 
+    }
+}
+
+@section scripts{
+    <script>
+        (function() {
+            $('.proj').on('click', function(e) {
+                var $target = $(e.target);
+                var elemWithProjId = $target.closest('.str');
+                if (!elemWithProjId || !elemWithProjId.length) {
+                    elemWithProjId = $target.closest('div').prev('.str');;
+                }
+                window.location.href = '/Mvc/Edit/' + elemWithProjId.attr('data-id');
+            });
+        })();
+    </script>
+}

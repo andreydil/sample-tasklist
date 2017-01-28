@@ -15,11 +15,7 @@ namespace Tasklist.DAL.SQL.Repositories
 
         public override Task<Project> GetByIdAsync(object id)
         {
-            return (from p in DbSet
-                join t in DbContext.Tasks on p.Id equals t.ProjectId into pt
-                from t in pt.DefaultIfEmpty()
-                where p.Id == (long)id
-                select p).FirstOrDefaultAsync();
+            return DbSet.Include(p => p.Tasks).FirstOrDefaultAsync(p => p.Id.Equals((long)id));
         }
 
         protected override IQueryable<Project> AllQuery()

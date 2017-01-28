@@ -12,7 +12,7 @@ namespace Tasklist.Web
             bundles.Add(new ScriptBundle("~/bundles/common").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/bootstrap.js",
-                "~/Scripts/bootstrap-confirmation.js",
+                "~/Scripts/bootstrap-confirmation.min.js",
                 "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

@@ -64,3 +64,22 @@ textarea {
 .list-group.list-group-root > .list-group > .list-group > .list-group-item {
   padding-left: 45px;
 }
+
+.task-row {
+  margin-bottom: 10px;
+}
+
+.task-isdone {
+  width: 25px;
+  height: 25px;
+  margin-left: 8px!important;
+}
+
+a.btn-inline-remove {
+  color: black;
+  font-size: x-large;
+}
+
+.field-validation-error{
+  color: #f04124;
+}
