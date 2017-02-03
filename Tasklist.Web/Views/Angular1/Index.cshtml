@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Angular1 SPA";
+}
+<div data-ng-app="app">
+    @Styles.Render("~/Content/angular1css")
+    <style>
+        .ng-hide {
+            display: none !important;
+        }
+    </style>
+    <div data-ng-include="'/Angular1SPA/layout/layout.html'">
+        <div class="jumbotron">
+            <h2>Loading...</h2>
+            <p class="lead">Task List Angular1</p>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/angular1")
+}

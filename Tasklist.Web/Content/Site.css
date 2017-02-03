@@ -83,3 +83,7 @@ a.btn-inline-remove {
 .field-validation-error{
   color: #f04124;
 }
+
+.cursor-pointer {
+	cursor: pointer;
+}

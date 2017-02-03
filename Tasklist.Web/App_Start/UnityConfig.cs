@@ -1,3 +1,4 @@
+using System.Web.Http;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Tasklist.BLL.Servcies;
@@ -10,14 +11,21 @@ namespace Tasklist.Web
 {
     public static class UnityConfig
     {
-        public static void RegisterComponents()
+        public static void RegisterComponents(HttpConfiguration config)
         {
-			var container = new UnityContainer();
+            var container = GetConfiguratedContainer();
+            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+            config.DependencyResolver = new Unity.WebApi.UnityDependencyResolver(container);
+        }
+        
+        private static UnityContainer GetConfiguratedContainer()
+        {
+            var container = new UnityContainer();
 
             container.RegisterType<IUnitOfWork, UnitOfWork>();
             container.RegisterType<IProjectService, ProjectService>();
 
-            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+            return container;
         }
     }
 }

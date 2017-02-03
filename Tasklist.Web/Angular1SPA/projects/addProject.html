@@ -1,0 +1,31 @@
+﻿<h2>Add new project</h2>
+
+<div class="well bs-component" data-ng-controller="addProjectController as vm">
+    <form class="form-horizontal">
+        <fieldset>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Name</label>
+                <div class="col-lg-10">
+                    <input class="form-control" id="txtName" placeholder="Name" type="text" ng-model="vm.name">
+                    <span class="field-validation-valid"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Description" class="col-lg-2 control-label">Description</label>
+                <div class="col-lg-10">
+                    <textarea class="form-control" cols="20" id="Description" name="Description" rows="3" data-ng-model="vm.description"></textarea>
+                    <span class="help-block">Optional</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <a class="btn btn-default" href="#!/">Back</a>
+                    <button class="btn btn-primary" data-ng-click="vm.addProject()">Submit</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</div>

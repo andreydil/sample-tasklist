@@ -81,10 +81,7 @@
                 self.tasks = tasks ? ko.observableArray(tasks) : ko.observableArray([new Task()]);
 
                 self.onTaskNameLostFocus = function() {
-                    var lastTask = self.getLastTask();
-                    if (!lastTask || lastTask.name) {
-                        self.addEmptyTask();
-                    }
+                    self.addEmptyTask();
                 };
 
                 self.getLastTask = function() {

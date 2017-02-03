@@ -1,0 +1,11 @@
+﻿<h2>Projects and tasks</h2>
+
+<div class="just-padding" data-ng-controller="projectsController as vm">
+    <div class="list-group list-group-root well">
+        <a class="list-group-item str proj cursor-pointer" data-ng-repeat-start="project in vm.projects" data-ng-click="vm.edit(project.id)"><h4><strong>{{project.name}}</strong></h4> {{project.description}} </a>
+        <div class="list-group proj cursor-pointer" data-ng-click="vm.edit(project.id)" data-ng-repeat="task in project.tasks" data-ng-repeat-end="">
+            <a class="list-group-item"><span class="glyphicon" data-ng-class="{true: 'glyphicon-ok', false: 'glyphicon-unchecked'}[task.isDone]" aria-hidden="true"></span> {{task.name}}</a>
+        </div>
+    </div>
+    <a href="#!/addProject" class="btn btn-default">Add</a>
+</div>

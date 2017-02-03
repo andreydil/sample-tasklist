@@ -1,0 +1,49 @@
+﻿<h2>Edit Project</h2>
+<div class="well bs-component"  data-ng-controller="editProjectController as vm">
+    <form class = "form-horizontal">
+        <fieldset>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Name</label>
+                <div class="col-lg-10">
+                    <input class="form-control" id="txtName" placeholder="Name" type="text" ng-model="vm.name">
+                    <span class="field-validation-valid"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Description" class="col-lg-2 control-label">Description</label>
+                <div class="col-lg-10">
+                    <textarea class="form-control" cols="20" id="Description" name="Description" rows="3" data-ng-model="vm.description"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Tasks</label>
+                <div class="col-lg-10" data-bind="foreach: tasks">
+                    <div class="task-row" data-ng-repeat="task in vm.tasks">
+                        <input type="text" class="form-control col-md-4" data-ng-model="task.name"  data-ng-blur="vm.addEmptyTask()" placeholder="Task text" />
+                        <input title="Done?" type="checkbox" value="true" class="task-isdone" data-ng-model="task.isDone" />
+                        <a class="glyphicon glyphicon-remove btn-inline-remove cursor-pointer" tabindex="-1" ng-click="vm.removeTask(task)" title="Remove"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <a class = "btn btn-default" href="#!/">Back</a>
+                    <button type="submit" class="btn btn-primary" data-ng-click="vm.save()">Submit</button>
+                    <button style="margin-left: 30px;" class="btn btn-danger"
+                            mwl-confirm
+                            title="Delete confirmation"
+                            message="Are you sure?"
+                            on-confirm="vm.delete()"
+                            confirm-button-type="danger"
+                            cancel-button-type="default">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+</div>

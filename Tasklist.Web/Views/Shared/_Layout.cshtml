@@ -23,6 +23,7 @@
                 <ul class="nav navbar-nav">
                     <li @MvcHtmlString.Create((Request.Url.AbsolutePath == "/" ? "class=active" : ""))>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
                     <li @Selected("Mvc")>@Html.ActionLink("Mvc", "Index", "Mvc", new { area = "" }, null)</li>
+                    <li @Selected("Angular1")>@Html.ActionLink("Angular1", "Index", "Angular1", new { area = "" }, null)</li>
                 </ul>
             </div>
         </div>
